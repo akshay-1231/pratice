@@ -1,0 +1,607 @@
+package Linked_List_Examples;
+
+public class Linke_List_Class {
+    Node root;//linked list uses container ship-uses has a relation
+
+    void create_list() {
+        root = null;//preparing with empty root
+    }
+
+    void insert_left(int data) {
+        Node n = new Node(data);
+        if (root == null) {
+            root = n;//n becomes 1st so root
+        } else {
+            n.next = root;//1
+            root = n;//2
+        }
+        System.out.println(root.data + " inserted");
+
+    }
+
+    void delete_left() {
+        if (root == null) {
+            System.out.println("Empty List");
+        } else {
+            Node t;
+            t = root;//1
+            root = root.next;//2
+            System.out.println(t.data + " deleted");
+        }
+    }
+
+    void insert_right(int data) {
+        Node n = new Node(data);
+        if (root == null)
+            root = n;//n becomes 1st so root=
+        else {
+            Node t = root;
+            while (t.next != null) {
+                t = t.next;
+            }
+            t.next = n;
+        }
+        System.out.println(root.data + " inserted");
+
+    }
+
+    void delete_right() {
+        if (root == null)
+            System.out.println("Empty List");
+        else {
+            Node t, t2;
+            t = t2 = root;//1
+            while (t.next != null) {
+                t2 = t;
+                t = t.next;
+            }
+            if (t == root)//single node
+                root = null;//reset root as only node left
+            else
+                t2.next = null;
+            System.out.println(t.data + " deleted");
+        }
+    }
+
+    void print_list() {
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            while (t != null) {
+                System.out.print("|" + t.data + "|->");
+                t = t.next;
+            }
+        }
+    }
+
+    void search_list(int data) {
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            while (t != null) {
+                if (t.data == data)//match found
+                {
+                    System.out.println(t.data + " found in list");
+                    break;
+                }
+                t = t.next;
+            }
+            if (t == null)//not found
+                System.out.println(data + " not found in list");
+        }
+    }
+
+    void delete_element(int data)
+    {
+        if (root == null)
+            System.out.println("List Empty");
+        else
+        {
+            Node t, t2;
+            t2 = t = root;
+            while (t != null)
+            {
+                if (t.data == data)//match found
+                {
+                    System.out.println(t.data + " found in list");
+                    if (t == root)//case 1
+                        root = root.next;
+                    else if (t.next == null)//case 2
+                        t2.next = null;
+                    else//case 3: in between
+                        t2.next = t.next;
+                    System.out.println(t.data + " deleted");
+                    break;//stop the loop
+                }
+                t2=t;
+                t = t.next;
+            }
+            if (t == null)//not found
+                System.out.println(data + " not found in list");
+        }
+    }
+    void insert_after(int key,int new_data) {
+        Node n = new Node(new_data);
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            while (t != null) {
+                if (t.data == key)//match found
+                {
+                    System.out.println(t.data + " found in list");
+                    n.next = t.next;//1
+                    t.next = n;
+                    System.out.println(new_data + " inserted in list");
+                    break;
+                }
+                t = t.next;
+            }
+            if (t == null)//not found
+                System.out.println(key + " not found in list");
+
+        }
+    }
+    void insert_before(int key,int new_data) {
+        Node n = new Node(new_data);
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            Node t2=root;
+            while (t != null)
+            {
+                if (t.data == key)//match found
+                {
+                    if(t==root)
+                    {
+                        n.next=root;
+                        root=n;
+                        System.out.println(new_data + " inserted in list before root");
+                    }
+                    else {
+                        System.out.println(t.data + " found in list");
+                        n.next = t;//1
+                        t2.next = n;
+                        System.out.println(new_data + " inserted in list");
+                    }
+                       break;
+                }
+                t2=t;
+                t = t.next;
+            }
+            if (t == null)//not found
+                System.out.println(key + " not found in list");
+
+        }
+    }
+    void sort_list(Node r)
+    {
+        Node i,t,t2;
+        int temp;
+        for(i=root;i.next!=null;i=i.next)//given n-1 passes
+        {
+            for(t=root;t.next!=null;t=t.next)//compare and swap if needed
+            {
+                t2=t.next;
+                if (t2==null)
+                    break;
+                if(t.data>t2.data)
+                {
+                    temp=t.data;
+                    t.data=t2.data;
+                    t2.data=temp;
+                }
+            }
+        }
+    }
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+ackage Linked_List_Examples;
+
+public class Reverse_list {
+    Node root;
+    Stack_class obj;
+
+    void create_list() {
+        root = null;//preparing with empty roo
+        obj=new Stack_class();
+    }
+    void reverse()
+    {
+        int length=0;
+        if (root == null)
+            System.out.println("List Empty");
+        else{
+
+            Node t = root;
+            while (t != null) {
+                length++;
+                t = t.next;
+            }
+            System.out.println("Length is:"+length);
+            //create stack of size of length
+            obj.create_Stack(length);
+            //read all elements and push on stack
+            t = root;
+            while (t!= null) {
+                obj.push(t.data);
+                t=t.next;
+            }
+            //traverse again linked list to write back the data on linked list
+            t = root;
+            while (t!= null) {
+                t.data=obj.pop();
+                t=t.next;
+            }
+        }
+
+    }
+
+    void insert(int data) {
+        Node n = new Node(data);
+        if (root == null)
+            root = n;//n becomes 1st so root=
+        else {
+            Node t = root;
+            while (t.next != null) {
+                t = t.next;
+            }
+            t.next = n;
+        }
+        System.out.println(data + " inserted");
+
+    }
+
+    void print_list() {
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            while (t != null) {
+                System.out.print("|" + t.data + "|->");
+                t = t.next;
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        Reverse_list list1 = new Reverse_list();
+        list1.create_list();
+        list1.insert(10);
+        list1.insert(15);
+        list1.insert(20);
+        list1.insert(25);
+        System.out.println("List Has");
+        list1.print_list();
+        list1.reverse();
+        System.out.println("\nReverse List Has");
+        list1.print_list();
+
+
+    }
+}
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+package Linked_List_Examples;
+
+public class Stack_class
+{
+    private int stack[], MaxSize, tos;
+
+    public void create_Stack(int size) {
+        tos = -1;//init tos
+        stack = new int[size];//create stack
+        MaxSize = size;//init MaxSize
+    }
+
+    public void push(int e) {
+        tos++;
+        stack[tos] = e;
+        System.out.println("Element " + e + " Pushed:");
+    }
+
+    public boolean is_Full() {
+        if (tos == MaxSize - 1)
+            return true;
+        else
+            return false;
+    }
+
+    public int pop() {
+        int temp = stack[tos];
+        tos--;
+        return (temp);
+
+        //return(stack[tos--]);
+    }
+
+    public boolean is_Empty() {
+        if (tos == -1)
+            return true;
+        else
+            return false;
+    }
+
+    public int peek() {
+        return (stack[tos]);
+    }
+
+    public void print_Stack() {//lifo print
+        System.out.println("Stack has");
+        for (int i = tos; i >= 0; i--) {
+            System.out.println(stack[i]);
+        }
+
+    }
+}
+\\\\\\\\\\\\\\\\\\\
+
+public class Merge_Linked_lists
+{
+    Node root;
+    void create_list()
+    {
+        root = null;//preparing with empty root
+    }
+    void insert(int data) {
+        Node n = new Node(data);
+        if (root == null)
+            root = n;//n becomes 1st so root=
+        else {
+            Node t = root;
+            while (t.next != null) {
+                t = t.next;
+            }
+            t.next = n;
+        }
+        System.out.println(data + " inserted");
+
+    }
+    void print_list() {
+        if (root == null)
+            System.out.println("List Empty");
+        else {
+            Node t = root;
+            while (t != null) {
+                System.out.print("|" + t.data + "|->");
+                t = t.next;
+            }
+        }
+    }
+    static Merge_Linked_lists merge_list(Node r1,Node r2)
+    {
+        Node i,j;
+        Merge_Linked_lists obj3=new Merge_Linked_lists();
+        obj3.create_list();
+        i=r1;
+        j=r2;
+
+//compare and copy in order
+        while(i!=null && j!=null)
+        {
+            if(i.data<j.data) {
+                obj3.insert(i.data);
+                i=i.next;
+            }
+            else
+            {
+                obj3.insert(j.data);
+                j=j.next;
+            }
+
+        }
+       //copy leftover
+        while(i!=null)
+        {
+            obj3.insert(i.data);
+            i=i.next;
+        }
+        while(j!=null) {
+            obj3.insert(j.data);
+            j = j.next;
+        }
+        return obj3;
+    }
+    public static void main(String args[])
+    {
+        Merge_Linked_lists list1= new Merge_Linked_lists();
+        list1.create_list();
+        list1.insert(10);
+        list1.insert(15);
+        list1.insert(20);
+        list1.insert(25);
+        System.out.println("Sorted list 1");
+        list1.print_list();
+
+
+        Merge_Linked_lists list2= new Merge_Linked_lists();
+        list2.create_list();
+        list2.insert(5);
+        list2.insert(12);
+        list2.insert(22);
+        list2.insert(27);
+        System.out.println("Sorted list 2");
+        list2.print_list();
+
+        Merge_Linked_lists list3= new Merge_Linked_lists();
+        list3=merge_list(list1.root,list2.root);
+
+        System.out.println("Merged list is");
+        list3.print_list();
+    }
+}\
+\\\\\\\\\\\\\\\\\\\\
+
+import java.util.Scanner;
+
+public class Linked_List_Main
+{
+    public static void main(String args[]) {
+        Linke_List_Class obj = new Linke_List_Class();
+        Scanner in = new Scanner(System.in);
+        int ch, e,key;
+        obj.create_list();//creating LinkedList
+        do {
+            System.out.println("\n1.Insert Left\n2.Insert Right\n3.Delete Left:\n4.Delete right\n5.Print\n6.Search element in List\n7.Delete element\n8.Insert after\n9.Insert before\n10.Sort the list\n0.Exit :");
+            ch = in.nextInt();
+            switch (ch) {
+                case 1:
+                    System.out.println("Enter element:");
+                    e = in.nextInt();
+                    obj.insert_left(e);
+                    System.out.println("Element Inserted");
+                    break;
+
+                case 2:
+                    System.out.println("Enter element:");
+                    e = in.nextInt();
+                    obj.insert_right(e);
+                    System.out.println("Element Inserted");
+                    break;
+
+                case 3:
+                    obj.delete_left();
+                    break;
+
+                case 4:
+                    obj.delete_right();
+                    break;
+                case 5:
+                    obj.print_list();
+                    break;
+                case 6:
+                    System.out.println("Enter element:");
+                    e = in.nextInt();
+                    obj.search_list(e);
+                    break;
+                case 7:
+                    System.out.println("Enter element:");
+                    e = in.nextInt();
+                    obj.delete_element(e);
+                    break;
+                case 8:
+                    System.out.println("Enter element to insert after:");
+                    e = in.nextInt();
+                    System.out.println("Enter element to search:");
+                    key = in.nextInt();
+                    obj.insert_after(key,e);
+                    System.out.println("Element Inserted");
+                    break;
+                case 9:
+                    System.out.println("Enter element to insert before:");
+                    e = in.nextInt();
+                    System.out.println("Enter element to search:");
+                    key = in.nextInt();
+                    obj.insert_before(key,e);
+                    System.out.println("Element Inserted");
+                    break;
+                case 10:
+                    obj.sort_list(obj.root);
+                    System.out.println("Sorted elements are\n");
+                    obj.print_list();
+                    break;
+                case 0:
+                    System.out.println("Exiting....");
+                    break;
+
+                default:
+                    System.out.println("Wrong option selected");
+                    break;
+
+            }
+
+        } while (ch != 0);
+    }
+}
+\\\\\\\\\\\\\\\\\\\\\\\
+package Graph_Examples;
+
+import java.util.Scanner;
+
+public class Count_Edges
+{
+    int v,visited[],g[][];
+    //v number of nodes
+    //g is Adjacency matrix of v x v
+    //visited[i] is 1:visited 0:unvisited
+
+    void createGraph(int nodes)
+    {   v=nodes;
+        Scanner in=new Scanner(System.in);
+        g=new int[v][v];//adj mat
+        visited=new int[v];//visited array
+        for(int i =0;i<v;i++)
+        {
+            for(int j=0;j<v;j++)
+            {
+                System.out.println("Enter value for v"+i+" to v"+j+" (999 for infinity):");
+                g[i][j]=in.nextInt();
+
+            }
+        }
+    }
+    void printG()
+    {
+        for(int i =0;i<v;i++)
+        {
+            for(int j=0;j<v;j++)
+            {
+                System.out.print(g[i][j]+"\t");
+            }
+            System.out.println();
+        }
+    }
+    int Count_Edges()
+    {
+        int count=0;
+        for(int i =0;i<v;i++)
+        {
+            for(int j=0;j<v;j++)
+            {
+                if(g[i][j]!=0)
+                   count++;
+            }
+
+        }
+        return count;
+    }
+    public static void main(String args[]) {
+        Count_Edges obj = new Count_Edges();
+        obj.createGraph(4);
+        obj.printG();
+        System.out.println("Total edges: "+obj.Count_Edges());
+    }
+}
+\\\\\\\\\\\\\\\\\\\\
+package Queue_Exmaples;
+
+import java.util.Scanner;
+public class Convert_Binary_Dec
+{
+    static int Convert(Queue_Class obj,int size)
+    {
+        int sum=0;
+        while(size!=0)
+        {
+            sum=sum+ (obj.Dequeue()*(int)Math.pow(2,size-1));
+            size--;
+        }
+        return sum;
+    }
+
+    public static void main(String args[])
+    {
+        Queue_Class obj=new Queue_Class();
+        Scanner in=new Scanner(System.in);
+        System.out.println("Enter bits of data:");
+        int size=in.nextInt();
+        obj.create_Queue(size);
+        System.out.println("Enter bits one after other\n");
+        for(int i=0;i<size;i++)
+            obj.Enqueue(in.nextInt());
+
+        System.out.println("\nNumber:"+Convert(obj,size));
+
+    }
